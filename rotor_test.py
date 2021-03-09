@@ -1,61 +1,35 @@
 import rotor
+from alphabet import Alphabet
 
 def test_rotor_mappings_are_set_on_init():
-    mapping = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    testRotor = rotor.Rotor("test rotor", mapping, "A")
+    mapping = Alphabet.set
+    testRotor = rotor.Rotor("test rotor", mapping)
     assert testRotor.mapping == mapping
 
 def test_zero_offset_mapping():
     given = "A"
     expected = "E"
     rotorI = __buildRotorI()
-    actual = rotorI.map(given)
-    assert expected == actual
+    actual = rotorI.map(Alphabet.index(given))
+    assert Alphabet.index(expected) == actual
 
-def test_zero_offset_reverse_mapping():
-    given = "E"
-    expected = "A"
+def test_reverse_mapping():
+    given = Alphabet.index("E")
+    expected = Alphabet.index("A")
     rotorI = __buildRotorI()
-    actual = rotorI.reverseMap(given)
-    assert expected == actual
-
-def test_one_offset_mapping():
-    given = "A"
-    expected = "J"
-    rotorI = __buildRotorI()
-    rotorI.offset = 1
-    actual = rotorI.map(given)
-    assert expected == actual
-
-def test_offset_reverse_mapping():
-    given = "K"
-    expected = "D"
-    rotorI = __buildRotorI()
-    rotorI.offset = 1
     actual = rotorI.reverseMap(given)
     assert expected == actual
 
 def test_noop_with_zero_offset():
-    given = "A"
-    expected = "A"
+    given = Alphabet.index("A")
+    expected = Alphabet.index("A")
     noopRotor = __buildNoOpRotor()
-    actual = noopRotor.map(given)
-    assert expected == actual
-
-def test_noop_with_one_offset():
-    given = "A"
-    expected = "A"
-    noopRotor = __buildNoOpRotor()
-    noopRotor.offset = 1
     actual = noopRotor.map(given)
     assert expected == actual
 
 def __buildRotorI():
-    rotorIMapping = "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
-    rotorI = rotor.Rotor("Rotor I", rotorIMapping, "A")
-    return rotorI
+    return rotor.RotorFactory.Rotor("RotorI")
 
 def __buildNoOpRotor():
-    rotorMapping = rotor.Rotor.alphabet
-    noopRotor = rotor.Rotor("No Op Rotor", rotorMapping, "A")
+    noopRotor = rotor.RotorFactory.Rotor("NoOp")
     return noopRotor
