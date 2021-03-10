@@ -1,4 +1,5 @@
 from alphabet import Alphabet
+from wiring import Wiring, WiringFactory
 
 class Rotor:
     def __init__(self, wiring, turnover):
@@ -24,3 +25,13 @@ class Rotor:
         offsetMappedLocation = mappedLocation - self.offset
         return Alphabet[offsetMappedLocation]
 
+class RotorFactory:
+    turnovers = dict([
+        ("RotorI", "Q"),
+        ("NoOp", "")
+    ])
+    @staticmethod
+    def Rotor(name):
+        wiringConfiguration = WiringFactory.Wiring(name)
+        turnover = RotorFactory.turnovers[name]
+        return Rotor(wiringConfiguration, turnover)
