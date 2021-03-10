@@ -1,6 +1,6 @@
 from alphabet import Alphabet
 
-class OffsetRotor:
+class Rotor:
     def __init__(self, wiring, turnover):
         self.wiring = wiring
         self.turnover = turnover
@@ -23,3 +23,4 @@ class OffsetRotor:
 
         offsetMappedLocation = mappedLocation - self.offset
         return Alphabet[offsetMappedLocation]
+
