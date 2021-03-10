@@ -1,6 +1,6 @@
 from alphabet import Alphabet
 
-class Rotor:
+class Wiring:
     def __init__(self, name, mapping):
         self.name = name
         self.mapping = mapping
@@ -21,12 +21,13 @@ class Rotor:
         return output
 
 
-class RotorFactory:
-    rotors = dict([
+class WiringFactory:
+    wirings = dict([
         ("RotorI", "EKMFLGDQVZNTOWYHXUSPAIBRCJ"),
         ("NoOp", Alphabet.set)
     ])
     @staticmethod
-    def Rotor(name):
-        return Rotor(name, RotorFactory.rotors[name])
+    def Wiring(name):
+        wiringConfiguration = WiringFactory.wirings[name]
+        return Wiring(name, wiringConfiguration)
 
