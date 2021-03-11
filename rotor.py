@@ -6,6 +6,10 @@ class Rotor:
         self.wiring = wiring
         self.turnover = turnover
         self.offset = 0
+
+    def advance(self):
+        self.offset+=1
+        self.offset = self.offset % len(self.wiring.mapping)
     
     def map(self, input):
         location = Alphabet.index(input)
@@ -24,10 +28,17 @@ class Rotor:
 
         offsetMappedLocation = mappedLocation - self.offset
         return Alphabet[offsetMappedLocation]
+    
+    def isInTurnoverPosition(self):
+        return Alphabet[self.offset] == self.turnover
 
 class RotorFactory:
     turnovers = dict([
         ("RotorI", "Q"),
+        ("RotorII", "E"),
+        ("RotorIII", "V"),
+        ("ReflectorA",""),
+        ("ReflectorB",""),
         ("NoOp", "")
     ])
     @staticmethod

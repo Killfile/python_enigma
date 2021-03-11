@@ -24,6 +24,10 @@ class Wiring:
 class WiringFactory:
     wirings = dict([
         ("RotorI", "EKMFLGDQVZNTOWYHXUSPAIBRCJ"),
+        ("RotorII", "AJDKSIRUXBLHWTMCQGZNPYFVOE"),
+        ("RotorIII", "BDFHJLCPRTXVZNYEIWGAKMUSQO"),
+        ("ReflectorA","EJMZALYXVBWFCRQUONTSPIKHGD"),
+        ("ReflectorB","YRUHQSLDPXNGOKMIEBFZCWVJAT"),
         ("NoOp", Alphabet.set)
     ])
     @staticmethod
