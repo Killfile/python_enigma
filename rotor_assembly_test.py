@@ -6,7 +6,9 @@ from alphabet import Alphabet
 position_data = [
     ([0,0,0],0,[0,0,0]), 
     ([0,0,0],1,[1,0,0]),
-    ([Alphabet.index("V"),0,0],1,[Alphabet.index("W"),Alphabet.index("B"),0])]
+    ([21,0,0],1,[22,1,0]),
+    ([21,4,0],1,[22,5,1])
+    ]
 @pytest.mark.parametrize("starting, advanceCount, expected", position_data)
 def test_getRotorPosition(starting, advanceCount, expected):
     rotors = [
@@ -14,7 +16,7 @@ def test_getRotorPosition(starting, advanceCount, expected):
         rotor.RotorFactory.Rotor("RotorII"),
         rotor.RotorFactory.Rotor("RotorI")
     ]
-    for i in 0,2:
+    for i in range(0,3):
         rotors[i].offset = starting[i]
     
     reflector = rotor.RotorFactory.Rotor("ReflectorA")
