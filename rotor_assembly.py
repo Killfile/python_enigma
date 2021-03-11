@@ -12,7 +12,15 @@ class RotorAssembly:
         return positions
     
     def crypt(self, character):
-        self.rotors[0].advance()
+        for i in range(2,-1,-1):
+            if i==0:
+                self.rotors[i].advance()
+            else:
+                next_turnover = self.rotors[i-1].turnover
+                next_offset = self.rotors[i-1].offset
+                if next_turnover == next_offset:
+                    self.rotors[i].advance()
+
         for rotor in self.rotors:
             character = rotor.map(character)
         

@@ -34,9 +34,9 @@ class Rotor:
 
 class RotorFactory:
     turnovers = dict([
-        ("RotorI", "Q"),
-        ("RotorII", "E"),
-        ("RotorIII", "V"),
+        ("RotorI", 16),     #Q
+        ("RotorII", 4),     #E
+        ("RotorIII", 21),   #V
         ("ReflectorA",""),
         ("ReflectorB",""),
         ("NoOp", "")
