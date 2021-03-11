@@ -12,7 +12,7 @@ class Wiring:
         return self.__mapCharacterAcrossSetsWithOffset(location, self.mapping, Alphabet.set)
     
     def __mapCharacterAcrossSetsWithOffset(self, location, inputMap, outputMap):
-        mappedCharacter = outputMap[location]
+        mappedCharacter = outputMap[location % len(Alphabet.set)]
         mappedLocation = inputMap.index(mappedCharacter)
         return mappedLocation
 
