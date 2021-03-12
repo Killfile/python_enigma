@@ -1,4 +1,5 @@
 import rotor
+from alphabet import Alphabet
 
 class RotorAssembly:
     def __init__(self, rotors, reflector):
@@ -6,10 +7,15 @@ class RotorAssembly:
         self.reflector = reflector
 
     def getRotorPosition(self):
-        positions = []
+        positions = ""
         for rotor in self.rotors:
-            positions.append(rotor.offset)
+            positions += Alphabet[rotor.offset]
+        positions = positions [::-1]
         return positions
+
+    def setRotorPosition(self, position):
+        for i, element in enumerate(position):
+            self.rotors[2-i].offset = Alphabet.index(element)
     
     def crypt(self, character):
         for i in range(2,-1,-1):

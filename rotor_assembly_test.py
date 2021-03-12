@@ -9,20 +9,19 @@ def test_getRotorPosition():
         rotor.RotorFactory.Rotor("RotorII"),
         rotor.RotorFactory.Rotor("RotorI")
     ]
-    for i in range(0,3):
-        rotors[i].offset = 0
     
     reflector = rotor.RotorFactory.Rotor("ReflectorA")
     rotorAssembly = RotorAssembly(rotors, reflector)
+    rotorAssembly.setRotorPosition("AAA")
 
     positions = rotorAssembly.getRotorPosition()
-    assert positions == [0,0,0]
+    assert positions == "AAA"
     
 position_data = [
-    ([0,0,0],0,[0,0,0]), 
-    ([0,0,0],1,[1,0,0]),
-    ([21,0,0],1,[22,1,0]),
-    ([21,4,0],1,[22,5,1])
+    ("AAA",0,"AAA"), 
+    ("AAA",1,"AAB"),
+    ("AAV",1,"ABW"),
+    ("AEV",1,"BFW")
     ]
 @pytest.mark.parametrize("starting, advanceCount, expected", position_data)
 def test_rotorAdvancement(starting, advanceCount, expected):
@@ -31,11 +30,12 @@ def test_rotorAdvancement(starting, advanceCount, expected):
         rotor.RotorFactory.Rotor("RotorII"),
         rotor.RotorFactory.Rotor("RotorI")
     ]
-    for i in range(0,3):
-        rotors[i].offset = starting[i]
-    
+        
     reflector = rotor.RotorFactory.Rotor("ReflectorA")
     rotorAssembly = RotorAssembly(rotors, reflector)
+
+    rotorAssembly.setRotorPosition(starting)
+
     for i in range(advanceCount):
         rotorAssembly.crypt("A")
 
@@ -49,13 +49,9 @@ def test_crypt():
         rotor.RotorFactory.Rotor("RotorI")
     ]
     
-    rotors[0].offset = 25
-    rotors[1].offset = 0
-    rotors[2].offset = 0
-    
     reflector = rotor.RotorFactory.Rotor("ReflectorB")
     rotorAssembly = RotorAssembly(rotors, reflector)
-
+    rotorAssembly.setRotorPosition("AAZ")
     actual = rotorAssembly.crypt("A")
 
     assert "U" == actual
