@@ -21,7 +21,10 @@ position_data = [
     ("AAA",0,"AAA"), 
     ("AAA",1,"AAB"),
     ("AAV",1,"ABW"),
-    ("AEV",1,"BFW")
+    ("AEV",1,"BFW"),
+    ("ADV",1,"AEW"),
+    ("AEW",1,"BFX"), #doublestep
+    ("BFX",1,"BFY")
     ]
 @pytest.mark.parametrize("starting, advanceCount, expected", position_data)
 def test_rotorAdvancement(starting, advanceCount, expected):
@@ -48,7 +51,7 @@ def test_crypt():
         rotor.RotorFactory.Rotor("RotorII"),
         rotor.RotorFactory.Rotor("RotorI")
     ]
-    
+
     reflector = rotor.RotorFactory.Rotor("ReflectorB")
     rotorAssembly = RotorAssembly(rotors, reflector)
     rotorAssembly.setRotorPosition("AAZ")

@@ -18,14 +18,7 @@ class RotorAssembly:
             self.rotors[2-i].offset = Alphabet.index(element)
     
     def crypt(self, character):
-        for i in range(2,-1,-1):
-            if i==0:
-                self.rotors[i].advance()
-            else:
-                next_turnover = self.rotors[i-1].turnover
-                next_offset = self.rotors[i-1].offset
-                if next_turnover == next_offset:
-                    self.rotors[i].advance()
+        self.__advance_rotors()
 
         for rotor in self.rotors:
             character = rotor.map(character)
@@ -36,4 +29,16 @@ class RotorAssembly:
             character = rotor.reverseMap(character)
         
         return character
+
+    def __advance_rotors(self):
+        for i in range(2,-1,-1):
+            if i==0:
+                self.rotors[i].advance()
+            elif i==1 and self.rotors[i].turnover == self.rotors[i].offset:
+                self.rotors[i].advance()
+            else:
+                next_turnover = self.rotors[i-1].turnover
+                next_offset = self.rotors[i-1].offset
+                if next_turnover == next_offset:
+                    self.rotors[i].advance()
 
