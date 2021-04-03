@@ -21,6 +21,7 @@ class Wiring:
         return output
 
 
+
 class WiringFactory:
     wirings = dict([
         ("RotorI", "EKMFLGDQVZNTOWYHXUSPAIBRCJ"),

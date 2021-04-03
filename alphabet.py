@@ -8,3 +8,7 @@ class Alphabet:
     @staticmethod
     def __class_getitem__(key):
         return Alphabet.set[key]
+    
+    @staticmethod
+    def length():
+        return len(Alphabet.set)
