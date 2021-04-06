@@ -23,12 +23,11 @@ def test_doublestep_crypt():
     expected = "IHEARTHEWEATHERINARGENTINAISNICETHISTIMEOFYEAR"
     assert expected == enigma.crypt(input)
 
-
 def test_ringsetting_crypt():
     enigma = enigma_machine.EnigmaMachine(["RotorIII", "RotorII", "RotorI"], "ReflectorB", plugboard.Plugboard())
-    enigma.rotor_assembly.rotors[0].setRingSetting(1)
-    enigma.rotor_assembly.rotors[1].setRingSetting(1)
-    enigma.rotor_assembly.rotors[2].setRingSetting(1)
+    enigma.rotor_assembly.rotors[0].rotorStack.setRingSetting("B")
+    enigma.rotor_assembly.rotors[1].rotorStack.setRingSetting("B")
+    enigma.rotor_assembly.rotors[2].rotorStack.setRingSetting("B")
     enigma.setRotorPosition("AAA")
     expected = "EWTYX"
     given = "AAAAA"

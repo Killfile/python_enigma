@@ -1,29 +1,36 @@
 import ringsetting
+import wiring
 
 def test_mapIn_wrap():
-    ring = ringsetting.Ringsetting("B")
+    noop = wiring.WiringFactory.Wiring("NoOp")
+    ring = ringsetting.Ringsetting(noop, "B")
     given = "A"
     expected = "Z"
-    actual = ring.mapCharacterIn(given)
+    actual = ring.mapIn(given)
     assert actual == expected
 
 def test_mapIn():
-    ring = ringsetting.Ringsetting("B")
+    noop = wiring.WiringFactory.Wiring("NoOp")
+    ring = ringsetting.Ringsetting(noop, "B")
     given = "B"
     expected = "A"
-    actual = ring.mapCharacterIn(given)
+    actual = ring.mapIn(given)
     assert actual == expected
 
 def test_mapOut_wrap():
-    ring = ringsetting.Ringsetting("B")
+    noop = wiring.WiringFactory.Wiring("NoOp")
+    ring = ringsetting.Ringsetting(noop, "B")
     given = "Z"
     expected = "A"
-    actual = ring.mapCharacterOut(given)
+    actual = ring.mapOut(given)
     assert actual == expected
 
 def test_mapOut():
-    ring = ringsetting.Ringsetting("B")
+    noop = wiring.WiringFactory.Wiring("NoOp")
+    ring = ringsetting.Ringsetting(noop, "B")
     given = "B"
     expected = "C"
-    actual = ring.mapCharacterOut(given)
+    actual = ring.mapOut(given)
     assert actual == expected
+
+

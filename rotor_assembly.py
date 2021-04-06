@@ -9,13 +9,13 @@ class RotorAssembly:
     def getRotorPosition(self):
         positions = ""
         for rotor in self.rotors:
-            positions += Alphabet[rotor.offset]
+            positions += rotor.rotorStack.getRotorPosition()
         positions = positions [::-1]
         return positions
 
     def setRotorPosition(self, position):
         for i, element in enumerate(position):
-            self.rotors[2-i].offset = Alphabet.index(element)
+            self.rotors[2-i].rotorStack.setOffSet(element)
     
     def crypt(self, character):
         self.__advance_rotors()
@@ -34,11 +34,11 @@ class RotorAssembly:
         for i in range(2,-1,-1):
             if i==0:
                 self.rotors[i].advance()
-            elif i==1 and self.rotors[i].turnover == self.rotors[i].offset:
+            elif i==1 and self.rotors[i].isInTurnoverPosition():
                 self.rotors[i].advance()
             else:
                 next_turnover = self.rotors[i-1].turnover
                 next_offset = self.rotors[i-1].offset
-                if next_turnover == next_offset:
+                if self.rotors[i-1].isInTurnoverPosition():
                     self.rotors[i].advance()
 

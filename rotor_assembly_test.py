@@ -12,10 +12,10 @@ def test_getRotorPosition():
     
     reflector = rotor.RotorFactory.Rotor("ReflectorA")
     rotorAssembly = RotorAssembly(rotors, reflector)
-    rotorAssembly.setRotorPosition("AAA")
+    rotorAssembly.setRotorPosition("ABC")
 
     positions = rotorAssembly.getRotorPosition()
-    assert positions == "AAA"
+    assert positions == "ABC"
     
 position_data = [
     ("AAA",0,"AAA"), 

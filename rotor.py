@@ -1,11 +1,12 @@
 from alphabet import Alphabet
 from wiring import Wiring, WiringFactory
 from ringsetting import Ringsetting
+from rotorComponent import RotorComponent
+from offset import Offset
 
-class Rotor:
-    def __init__(self, wiring, turnover):
-        self.wiring = wiring
-        self.ringSetting = Ringsetting("A")
+class Rotor(RotorComponent):
+    def __init__(self, rotorComponent: RotorComponent, turnover):
+        self.rotorStack = rotorComponent
         self.turnover = turnover
         self.offset = 0
     
@@ -13,36 +14,28 @@ class Rotor:
         self.ringSetting.setting = ringSetting
 
     def advance(self):
-        self.offset+=1
-        self.offset = self.offset % Alphabet.length()
+        self.rotorStack.advance()
     
-    def map(self, input):
-        inputAfterApplyingRingSetting = self.ringSetting.mapCharacterIn(input)
-        location = Alphabet.index(inputAfterApplyingRingSetting)
-        location = (location + self.offset ) % Alphabet.length()
-        
-        mappedLocation = self.wiring.map(location)
+    def mapIn(self, input):
+        pass
 
-        offsetMappedLocation = (Alphabet.length() + mappedLocation - self.offset) % Alphabet.length()
-       # offsetMappedLocation = self.ringSetting.mapInt(offsetMappedLocation)
-        output = Alphabet[offsetMappedLocation]
-        outputAfterApplyingRingSetting = self.ringSetting.mapCharacterOut(output)
-        return outputAfterApplyingRingSetting
+    def mapOut(self, input):
+        pass
+
+    def map(self, input):
+        return self.rotorStack.map(input)
 
     def reverseMap(self, input):
-        inputAfterApplyingRingSetting = self.ringSetting.mapCharacterIn(input)
-        location = Alphabet.index(inputAfterApplyingRingSetting)
-        location = (location + self.offset) % Alphabet.length()
-        
-        mappedLocation = self.wiring.reverseMap(location)
+        return self.rotorStack.reverseMap(input)
+    
+    def reverseMapIn(self, input):
+        pass
 
-        offsetMappedLocation = (Alphabet.length() + mappedLocation - self.offset ) % Alphabet.length()
-        output =  Alphabet[offsetMappedLocation]
-        outputAfterApplyingRingSetting = self.ringSetting.mapCharacterOut(output)
-        return outputAfterApplyingRingSetting
+    def reverseMapOut(self, input):
+        pass
     
     def isInTurnoverPosition(self):
-        return Alphabet[self.offset] == self.turnover
+        return self.rotorStack.getRotorPosition() == Alphabet[self.turnover]
 
 class RotorFactory:
     turnovers = dict([
@@ -56,6 +49,9 @@ class RotorFactory:
     @staticmethod
     def Rotor(name):
         wiringConfiguration = WiringFactory.Wiring(name)
+        offset = Offset(wiringConfiguration, "A")
+        ringSetting = Ringsetting(offset, "A")
+        
         turnover = RotorFactory.turnovers[name]
-        return Rotor(wiringConfiguration, turnover)
+        return Rotor(ringSetting, turnover)
         
